@@ -191,7 +191,6 @@ public class EditActivity extends AppCompatActivity {
     //重写手机上返回键处理函数，若更改过提示保存，否则直接返回主界面
     @Override
     public void onBackPressed() {
-        setAlarm();
         boolean display = false;
         if (insertOrNot){
             if( !et_title.getText().toString().equals("") &&
@@ -213,6 +212,7 @@ public class EditActivity extends AppCompatActivity {
                     .setPositiveButton(R.string.btn_confirm, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            setAlarm();
                             saveNote();
                             Toast.makeText(EditActivity.this,R.string.save_succ,Toast.LENGTH_LONG).show();
                             //更新当前Note对象的值 防止选择保存后按返回仍显示此警告对话框
