@@ -8,6 +8,7 @@ public class ItemBean implements Serializable {
     private String content;
     private String date;
 
+    //setter getter
     public String getId() {
         return id;
     }

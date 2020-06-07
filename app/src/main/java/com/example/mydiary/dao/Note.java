@@ -12,7 +12,7 @@ public class Note {
     // 定义表名
     public static String tableName = "Note";
     // 定义各字段名
-    public static String _id = "_id"; // _id是SQLite中自动生成的主键，用语标识唯一的记录，为了方便使用，此处定义对应字段名
+    public static String _id = "_id"; // _id选择自增主键，为了方便使用，此处定义对应字段名
     public static String title = "title"; // 标题
     public static String content = "content"; // 内容
     public static String time = "date"; // 时间
@@ -86,14 +86,14 @@ public class Note {
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        HashMap<String, Object> NoteMap = new HashMap<String, Object>();
+        HashMap<String, Object> NoteMap = new HashMap<>();
         // 此处要求查询Note._id为传入参数_id的对应记录，使游标指向此记录
         Cursor cursor = db.query( Note.tableName, null, Note._id + " =? ", new String[]{ _id + "" }, null, null, null);
         cursor.moveToFirst();
         NoteMap.put(Note.title, cursor.getLong(cursor.getColumnIndex(Note.title)));
         NoteMap.put(Note.content, cursor.getString(cursor.getColumnIndex(Note.content)));
         NoteMap.put(Note.time, cursor.getString(cursor.getColumnIndex(Note.time)));
-
+        cursor.close();
         return NoteMap;
     }
 
@@ -131,7 +131,8 @@ public class Note {
                 cursor = db.query(Note.tableName, null, null, null, null, null,"title desc");
                 break;
         }
-        cursor.moveToFirst();
+        if(cursor!=null)
+            cursor.moveToFirst();
         return cursor;
     }
 }

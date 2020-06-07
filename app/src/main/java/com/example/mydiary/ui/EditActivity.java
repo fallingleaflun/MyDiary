@@ -242,7 +242,7 @@ public class EditActivity extends AppCompatActivity {
             //将来执行的操作
             PendingIntent pendingIntent = PendingIntent.getBroadcast(EditActivity.this, 0x101, intent, 0);
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            Toast.makeText(EditActivity.this,"已经设置闹钟提醒",Toast.LENGTH_LONG).show();
+            Toast.makeText(EditActivity.this, "已经设置闹钟提醒", Toast.LENGTH_LONG).show();
         }
     }
 }

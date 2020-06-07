@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 ItemBean noteInfo = noteList.get(position);
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("noteInfo", (Serializable) noteInfo);
+                bundle.putSerializable("noteInfo", (noteInfo));
                 intent.putExtras(bundle);
                 intent.setClass(MainActivity.this, EditActivity.class);
                 startActivity(intent);
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                                 Note.deleteNote(dbHelper, Integer.parseInt(noteInfo.getId()));
                                 noteList.remove(position);
                                 mListAdapter.refreshDataSet();
-                                Toast.makeText(MainActivity.this, "删除成功！", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this, "删除成功！", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //查找
     private void getItemBeanListByTitle(String s) {
         if(s.equals(""))
             getItemBeanList();
@@ -219,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
         menu.add(1,1,1,"按照修改时间升序");
         menu.add(1,2,1,"按照修改时间降序");
         menu.add(1,3,1,"按照标题升序");
-        menu.add(1,4,1,"按照标题降init序");
+        menu.add(1,4,1,"按照标题降序");
     }
 
     @Override
@@ -228,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
+    //排序
     private void sortItem(int type) {
         noteList.clear();
         Cursor cursor = Note.sortByTime(dbHelper, type);
